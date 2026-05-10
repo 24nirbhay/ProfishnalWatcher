@@ -1,3 +1,6 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
+
+# Prevent crawling of specific user-generated dynamic routes if added later
+Disallow: /profile/

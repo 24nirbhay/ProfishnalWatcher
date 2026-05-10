@@ -1,0 +1,91 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #30363d;
+  background-color: var(--card-bg);
+}
+
+.nav h2 {
+  margin: 0;
+  color: var(--text-main);
+}
+
+.loginBtn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.loginBtn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.hero {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #8b949e;
+  max-width: 600px;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.ctaBtn {
+  font-size: 1.2rem;
+  padding: 1rem 2.5rem;
+  background-color: var(--accent);
+  border-radius: 8px;
+}
+
+.features {
+  display: flex;
+  gap: 2rem;
+  margin-top: 5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.featureCard {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #30363d;
+  width: 280px;
+  text-align: left;
+}
+
+.featureCard h3 {
+  color: var(--accent);
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+}
+
+.featureCard p {
+  color: #8b949e;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}

@@ -1,0 +1,50 @@
+.container {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #30363d;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #30363d;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--accent);
+}
+
+.card p {
+  color: #8b949e;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.exportBtn {
+  background-color: var(--card-bg);
+  color: var(--text-main);
+  border: 1px solid var(--accent);
+}
+
+.exportBtn:hover {
+  background-color: var(--accent);
+  color: white;
+}
+
+.importBtn {
+  background-color: var(--card-bg);
+  color: var(--text-main);
+  border: 1px solid var(--success);
+}
+
+.importBtn:hover {
+  background-color: var(--success);
+  color: white;
+}

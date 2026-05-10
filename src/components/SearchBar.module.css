@@ -1,0 +1,79 @@
+.searchContainer {
+  margin-bottom: 2rem;
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #30363d;
+}
+
+.searchForm {
+  display: flex;
+  gap: 1rem;
+}
+
+.select, .input {
+  padding: 0.8rem;
+  background: var(--bg-color);
+  border: 1px solid #30363d;
+  color: var(--text-main);
+  border-radius: 6px;
+  outline: none;
+}
+
+.input {
+  flex-grow: 1;
+}
+
+.select:focus, .input:focus {
+  border-color: var(--accent);
+}
+
+.button {
+  background-color: var(--accent);
+  color: white;
+  padding: 0.8rem 1.5rem;
+}
+
+.resultsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.resultCard {
+  background: var(--bg-color);
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.poster {
+  width: 100%;
+  height: 225px;
+  object-fit: cover;
+}
+
+.info {
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.info h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.addButton {
+  margin-top: 0.5rem;
+  background-color: var(--success);
+  width: 100%;
+}
