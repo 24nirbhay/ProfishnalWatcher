@@ -149,113 +149,118 @@
 
 @media (max-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1.2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
   }
 
   .posterContainer {
-    height: 270px;
+    height: 240px;
   }
 }
 
 /* ---------- Mobile ---------- */
 
 @media (max-width: 768px) {
+
   .container {
-    margin-top: 1.5rem;
+    margin-top: 1.2rem;
   }
 
   .tabs {
-    gap: 0.7rem;
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.8rem;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.7rem;
   }
 
   .tab {
-    font-size: 0.9rem;
-    padding: 0.7rem 1rem;
+    font-size: 0.82rem;
+    padding: 0.55rem 0.8rem;
   }
 
+  /* CLEAN 4 COLUMN MOBILE GRID */
+
   .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.55rem;
+  }
+
+  .card {
+    border-radius: 10px;
   }
 
   .posterContainer {
-    height: 230px;
+    height: 145px;
   }
 
   .content {
-    padding: 0.85rem;
+    padding: 0.45rem;
   }
 
   .title {
-    font-size: 0.92rem;
+    font-size: 0.7rem;
+    line-height: 1.25;
+    white-space: nowrap;
   }
 
   .stats {
+    margin-bottom: 0.5rem;
     flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 0.9rem;
-    font-size: 0.8rem;
+    gap: 0.1rem;
+    font-size: 0.62rem;
   }
 
   .tierBadge {
-    font-size: 0.75rem;
-    padding: 4px 8px;
+    top: 5px;
+    right: 5px;
+    padding: 2px 6px;
+    font-size: 0.58rem;
+    border-radius: 999px;
   }
 
   .deleteButton {
-    font-size: 0.9rem;
+    padding: 0.45rem;
+    font-size: 0.65rem;
+    border-radius: 6px;
   }
 }
 
 /* ---------- Small Phones ---------- */
 
 @media (max-width: 480px) {
-  .tabs {
-    gap: 0.5rem;
-  }
-
-  .tab {
-    font-size: 0.82rem;
-    padding: 0.6rem 0.9rem;
-  }
 
   .grid {
-    grid-template-columns: 1fr;
-    gap: 0.9rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.45rem;
   }
 
   .posterContainer {
-    height: 260px;
+    height: 128px;
   }
 
   .content {
-    padding: 0.8rem;
+    padding: 0.4rem;
   }
 
   .title {
-    font-size: 0.88rem;
+    font-size: 0.66rem;
   }
 
   .stats {
-    font-size: 0.76rem;
-  }
-
-  .tierBadge {
-    top: 8px;
-    right: 8px;
-    font-size: 0.7rem;
-  }
-
-  .empty {
-    padding: 2rem 1rem;
-    font-size: 0.9rem;
+    font-size: 0.56rem;
   }
 
   .deleteButton {
-    padding: 0.75rem;
-    font-size: 0.85rem;
+    padding: 0.38rem;
+    font-size: 0.58rem;
+  }
+
+  .tierBadge {
+    font-size: 0.52rem;
+    padding: 2px 5px;
+  }
+
+  .empty {
+    padding: 1.5rem 1rem;
+    font-size: 0.82rem;
   }
 }
