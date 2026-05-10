@@ -5,46 +5,132 @@
 }
 
 .card {
-  background: var(--card-bg);
   padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid #30363d;
+  background: var(--card-bg);
 }
 
 .card h3 {
   margin-top: 0;
+  margin-bottom: 0.8rem;
   color: var(--accent);
 }
 
 .card p {
-  color: #8b949e;
-  font-size: 0.95rem;
   margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #8b949e;
 }
 
 .actions {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.exportBtn,
+.importBtn {
+  min-width: 140px;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
 .exportBtn {
-  background-color: var(--card-bg);
   color: var(--text-main);
   border: 1px solid var(--accent);
+  background-color: var(--card-bg);
 }
 
 .exportBtn:hover {
-  background-color: var(--accent);
   color: white;
+  background-color: var(--accent);
 }
 
 .importBtn {
-  background-color: var(--card-bg);
   color: var(--text-main);
   border: 1px solid var(--success);
+  background-color: var(--card-bg);
 }
 
 .importBtn:hover {
-  background-color: var(--success);
   color: white;
+  background-color: var(--success);
+}
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 1024px) {
+  .container {
+    margin-top: 2.5rem;
+    padding-top: 1.8rem;
+  }
+
+  .card {
+    padding: 1.3rem;
+  }
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 768px) {
+  .container {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+
+  .card {
+    padding: 1.2rem;
+    border-radius: 10px;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+  }
+
+  .card p {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .exportBtn,
+  .importBtn {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* ---------- Small Phones ---------- */
+
+@media (max-width: 480px) {
+  .container {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .card h3 {
+    font-size: 1rem;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .exportBtn,
+  .importBtn {
+    padding: 0.75rem 0.9rem;
+    font-size: 0.9rem;
+  }
 }

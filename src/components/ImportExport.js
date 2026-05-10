@@ -17,6 +17,35 @@ const ImportExport = () => {
     downloadAnchorNode.remove();
   };
 
+  // The Data Cleaner: Strips junk and provides safe fallbacks
+  const sanitizeItem = (item, defaultType) => {
+    return {
+      // 1. Core Identifiers
+      id: item.id || item.mal_id || item.imdbID || `${defaultType}-${Math.random().toString(36).substr(2, 9)}`,
+      type: item.type || defaultType,
+      
+      // 2. Metadata (What it is)
+      metadata: {
+        title: item.metadata?.title || item.title || item.name || 'Unknown Title',
+        poster: item.metadata?.poster || item.poster || item.image_url || 'https://via.placeholder.com/500x750?text=No+Poster',
+        genres: Array.isArray(item.metadata?.genres) ? item.metadata.genres : [],
+        releaseDate: item.metadata?.releaseDate || item.releaseDate || item.year || 'Unknown',
+        episodeCount: item.metadata?.episodeCount || item.episodeCount || item.episodes || 1,
+      },
+
+      // 3. User Stats (How the user interacted with it)
+      userStats: {
+        status: item.userStats?.status || item.status || item.watch_status || 'completed',
+        score: parseInt(item.userStats?.score || item.score || item.my_score || item.rating || 0),
+        progress: parseInt(item.userStats?.progress || item.progress || item.watched_episodes || 1),
+        totalEpisodes: parseInt(item.userStats?.totalEpisodes || item.episodeCount || 1),
+        completed: item.userStats?.completed !== undefined ? item.userStats.completed : true,
+        rewatchCount: parseInt(item.userStats?.rewatchCount || 0),
+        lastUpdated: item.userStats?.lastUpdated || new Date().toISOString()
+      }
+    };
+  };
+
   const handleImport = (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -26,19 +55,26 @@ const ImportExport = () => {
       try {
         const parsed = JSON.parse(e.target.result);
         
-        // Basic schema validation
-        if (!parsed.anime || !parsed.movies || !parsed.tv) {
-          throw new Error("Invalid JSON structure. Missing core categories (anime, movies, tv).");
-        }
+        // Ensure the base object has our three arrays, even if the imported JSON didn't
+        const rawAnime = Array.isArray(parsed.anime) ? parsed.anime : [];
+        const rawMovies = Array.isArray(parsed.movies) ? parsed.movies : [];
+        const rawTv = Array.isArray(parsed.tv) ? parsed.tv : [];
+
+        // Pass every item through the sanitizer to clean the data
+        const cleanedLibrary = {
+          anime: rawAnime.map(item => sanitizeItem(item, 'anime')),
+          movies: rawMovies.map(item => sanitizeItem(item, 'movie')),
+          tv: rawTv.map(item => sanitizeItem(item, 'tv'))
+        };
         
-        if (window.confirm("This will overwrite your current cloud library. Proceed?")) {
-          await updateLibrary(parsed);
-          alert("Library successfully imported and synced!");
+        if (window.confirm(`Found ${cleanedLibrary.anime.length} Anime, ${cleanedLibrary.movies.length} Movies, and ${cleanedLibrary.tv.length} TV Shows. Overwrite your current cloud library?`)) {
+          await updateLibrary(cleanedLibrary);
+          alert("Library successfully cleaned, imported, and synced!");
         }
       } catch (err) {
-        alert("Failed to import JSON: " + err.message);
+        alert("Failed to process JSON file: " + err.message);
       }
-      // Reset input
+      // Reset input so the user can import the same file again if needed
       event.target.value = '';
     };
     reader.readAsText(file);

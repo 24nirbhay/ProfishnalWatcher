@@ -10,16 +10,23 @@
   --tier-b: #d2a8ff;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-main);
 }
 
 .app-container {
   min-height: 100vh;
+  width: 100%;
   transition: background 0.3s ease;
 }
 
@@ -28,6 +35,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 1rem;
+  text-align: center;
   font-size: 1.5rem;
 }
 
@@ -35,12 +44,14 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   padding: 1rem 2rem;
   background-color: var(--card-bg);
   border-bottom: 1px solid #30363d;
 }
 
 .dashboard {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
@@ -54,6 +65,7 @@ button {
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
+  transition: 0.2s ease;
 }
 
 button:hover {
@@ -65,14 +77,84 @@ button:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  min-height: 80vh;
+  padding: 1.5rem;
   text-align: center;
 }
 
-/* Responsive Grid Base */
 .library-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
+}
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 1024px) {
+  .dashboard {
+    padding: 1.5rem;
+  }
+
+  .library-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.2rem;
+  }
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .dashboard {
+    padding: 1rem;
+  }
+
+  .library-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  .loading-screen {
+    font-size: 1.2rem;
+  }
+}
+
+/* ---------- Small Phones ---------- */
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 0.8rem;
+  }
+
+  .library-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  nav {
+    padding: 0.8rem;
+  }
+
+  button {
+    font-size: 0.95rem;
+  }
+
+  .loading-screen {
+    font-size: 1rem;
+  }
+
+  .auth-view {
+    padding: 1rem;
+  }
 }
