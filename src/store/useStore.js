@@ -32,20 +32,19 @@ const useStore = create((set, get) => ({
     const { library, user } = get();
     if (!user) return; // Prevent saving if no user is logged in
 
-    // 1. Update the Local UI instantly (Optimistic Update)
+    // 1. Update the Local UI instantly
     const updatedLibrary = {
       ...library,
       [type]: [...(library[type] || []), item]
     };
     set({ library: updatedLibrary });
 
-    // 2. Sync the new library directly to the Supabase JSONB column
+    // 2. Sync to Supabase
     const { error } = await supabase
       .from('profiles')
       .update({ library: updatedLibrary })
       .eq('id', user.id);
 
-    // 3. Catch and alert any database rejections
     if (error) {
       console.error("Supabase Sync Error (Add):", error.message);
       alert("Failed to save to database: " + error.message);
@@ -63,7 +62,7 @@ const useStore = create((set, get) => ({
     };
     set({ library: updatedLibrary });
 
-    // 2. Sync the deletion to Supabase
+    // 2. Sync deletion to Supabase
     const { error } = await supabase
       .from('profiles')
       .update({ library: updatedLibrary })
@@ -74,12 +73,13 @@ const useStore = create((set, get) => ({
       alert("Failed to delete from database: " + error.message);
     }
   },
-  // Add this right below removeMediaItem
+
+  // THE MISSING IMPORT FUNCTION
   updateLibrary: async (newLibrary) => {
     const { user } = get();
     if (!user) return; // Prevent saving if no user is logged in
 
-    // 1. Update the Local UI instantly (Optimistic Update)
+    // 1. Update the Local UI instantly with the imported JSON
     set({ library: newLibrary });
 
     // 2. Sync the entirely new library directly to the Supabase JSONB column
@@ -88,7 +88,6 @@ const useStore = create((set, get) => ({
       .update({ library: newLibrary })
       .eq('id', user.id);
 
-    // 3. Catch and alert any database rejections
     if (error) {
       console.error("Supabase Sync Error (Import):", error.message);
       alert("Failed to save imported library to database: " + error.message);
