@@ -15,7 +15,6 @@ const Auth = ({ onBack }) => {
     setLoading(true);
     setError(null);
 
-    // Format username into a dummy email to bypass Supabase limits
     const dummyEmail = `${username.toLowerCase().trim()}@profishnalwatcher.local`;
 
     try {
@@ -26,18 +25,12 @@ const Auth = ({ onBack }) => {
         });
         if (error) throw error;
       } else {
-        const { data, error } = await supabase.auth.signUp({
+        const { error } = await supabase.auth.signUp({
           email: dummyEmail,
           password,
         });
         if (error) throw error;
-        
-        // Ensure the unique username is saved to the profiles table
-        if (data.user) {
-          await supabase.from('profiles').insert([
-            { id: data.user.id, username: username }
-          ]);
-        }
+        // The database trigger now handles profile creation automatically!
       }
     } catch (err) {
       setError(err.message);
@@ -49,50 +42,52 @@ const Auth = ({ onBack }) => {
   return (
     <div className={styles.authContainer}>
       <div className={styles.authCard}>
-        <h2>{isLogin ? 'Welcome Back' : 'Join profishnalwatcher'}</h2>
+        <h2 className={styles.title}>{isLogin ? 'INITIATE LINK' : 'JOIN THE NEXUS'}</h2>
         {error && <p className={styles.error}>{error}</p>}
         
-        <form onSubmit={handleAuth}>
+        <form onSubmit={handleAuth} className={styles.form}>
           <div className={styles.inputGroup}>
-            <label>Username</label>
+            <label>USERNAME</label>
             <input 
               type="text" 
               required 
               value={username} 
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your unique username"
+              placeholder="Enter your alias"
+              className={styles.input}
             />
           </div>
           
           <div className={styles.inputGroup}>
-            <label>Password</label>
-            <div style={{ display: 'flex', position: 'relative' }}>
+            <label>PASSWORD</label>
+            <div className={styles.passwordWrapper}>
               <input 
                 type={showPassword ? "text" : "password"} 
                 required 
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)}
-                style={{ width: '100%', paddingRight: '40px' }}
+                placeholder="Enter clearance code"
+                className={styles.input}
               />
               <button 
                 type="button" 
                 onClick={() => setShowPassword(!showPassword)}
-                style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer' }}
+                className={styles.eyeBtn}
               >
                 {showPassword ? '👁️‍🗨️' : '👁️'}
               </button>
             </div>
           </div>
 
-          <button type="submit" disabled={loading} className={styles.submitBtn}>
-            {loading ? 'Processing...' : (isLogin ? 'Log In' : 'Sign Up')}
+          <button type="submit" disabled={loading} className={styles.glowButton}>
+            {loading ? 'PROCESSING...' : (isLogin ? 'LOG IN' : 'SIGN UP')}
           </button>
         </form>
 
         <p className={styles.toggleText}>
-          {isLogin ? "Don't have an account? " : "Already have an account? "}
-          <span onClick={() => setIsLogin(!isLogin)}>
-            {isLogin ? 'Sign Up' : 'Log In'}
+          {isLogin ? "NO ACCESS? " : "HAVE CLEARANCE? "}
+          <span onClick={() => setIsLogin(!isLogin)} className={styles.toggleLink}>
+            {isLogin ? 'REQUEST ACCESS' : 'LOGIN'}
           </span>
         </p>
       </div>
