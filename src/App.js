@@ -12,14 +12,15 @@ import './App.css';
 
 function App() {
   const { user, setUser, fetchProfile, loading, profile } = useStore();
-  const [currentView, setCurrentView] = useState('library'); 
-  const [showAuth, setShowAuth] = useState(false); // NEW: Controls if we show Landing or Auth
+  const [currentView, setCurrentView] = useState('landing'); 
 
   useEffect(() => {
+    // This function acts as the "Remember Me", fetching active sessions from LocalStorage
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         setUser(session.user);
         fetchProfile(session.user.id);
+        setCurrentView('library'); // Send to library if remembered
       } else {
         useStore.setState({ loading: false });
       }
@@ -29,7 +30,9 @@ function App() {
       setUser(session?.user ?? null);
       if (session?.user) {
         fetchProfile(session.user.id);
-        setShowAuth(false); // Reset to hide auth form when logged out
+        setCurrentView('library');
+      } else {
+        setCurrentView('landing');
       }
     });
 
@@ -40,39 +43,41 @@ function App() {
 
   return (
     <div className={`app-container ${profile?.settings?.theme || 'dark'}`}>
-      {!user ? (
-        // NEW: If not logged in, show Auth if requested, otherwise show Landing Page
-        showAuth ? (
-          <>
-            <button 
-              onClick={() => setShowAuth(false)} 
-              style={{ margin: '1rem', background: 'transparent', color: '#8b949e' }}
-            >
-              ← Back to Home
-            </button>
-            <Auth />
-          </>
-        ) : (
-          <Landing onGetStarted={() => setShowAuth(true)} />
-        )
-      ) : (
+      
+      {currentView === 'landing' && (
+        <Landing user={user} onAction={(action) => setCurrentView(action)} />
+      )}
+
+      {currentView === 'auth' && (
+        <>
+          <button onClick={() => setCurrentView('landing')} className="back-btn">
+            ← Back to Home
+          </button>
+          <Auth />
+        </>
+      )}
+
+      {currentView !== 'landing' && currentView !== 'auth' && user && (
         <div className="dashboard">
           <nav className="main-nav">
-            <h2 onClick={() => setCurrentView('library')} style={{cursor: 'pointer', margin: 0}}>
-              MyTracker
+            {/* Clicking logo redirects to Landing Page */}
+            <h2 onClick={() => setCurrentView('landing')} style={{cursor: 'pointer', margin: 0, color: '#00ffff', fontFamily: 'Orbitron'}}>
+              profishnalwatcher
             </h2>
-            <div className="nav-links">
+            
+            {/* The gap is fixed natively using inline styles here for simplicity */}
+            <div className="nav-links" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
               <button 
                 className="text-btn" 
                 onClick={() => setCurrentView('library')}
-                style={{ fontWeight: currentView === 'library' ? 'bold' : 'normal' }}
+                style={{ fontWeight: currentView === 'library' ? 'bold' : 'normal', color: 'white', background: 'transparent', border: 'none', cursor: 'pointer' }}
               >
                 Library
               </button>
               <button 
                 className="text-btn" 
                 onClick={() => setCurrentView('profile')}
-                style={{ fontWeight: currentView === 'profile' ? 'bold' : 'normal' }}
+                style={{ fontWeight: currentView === 'profile' ? 'bold' : 'normal', color: 'white', background: 'transparent', border: 'none', cursor: 'pointer' }}
               >
                 Analytics
               </button>
@@ -80,11 +85,12 @@ function App() {
                 <button 
                   className="text-btn admin-btn" 
                   onClick={() => setCurrentView('admin')}
+                  style={{ color: '#ff0080', background: 'transparent', border: 'none', cursor: 'pointer' }}
                 >
                   Admin
                 </button>
               )}
-              <button className="logout-btn" onClick={() => supabase.auth.signOut()}>
+              <button className="logout-btn" onClick={() => supabase.auth.signOut()} style={{ background: '#333', color: 'white', padding: '0.5rem 1rem', borderRadius: '4px', border: 'none', cursor: 'pointer' }}>
                 Logout
               </button>
             </div>
