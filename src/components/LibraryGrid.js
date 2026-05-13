@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import useStore from '../store/useStore';
-// Import the refurbished scoringEngine logic
 import { scoringEngine } from '../utils/scoringEngine';
 import styles from './LibraryGrid.module.css';
 
@@ -20,9 +19,10 @@ const LibraryGrid = () => {
         >
           Anime ({library.anime?.length || 0})
         </button>
+        {/* FIXED: Changed activeTab checks and setter from "movie" to "movies" */}
         <button 
-          className={`${styles.tab} ${activeTab === 'movie' ? styles.active : ''}`}
-          onClick={() => setActiveTab('movie')}
+          className={`${styles.tab} ${activeTab === 'movies' ? styles.active : ''}`}
+          onClick={() => setActiveTab('movies')}
         >
           Movies ({library.movies?.length || 0})
         </button>
@@ -39,7 +39,6 @@ const LibraryGrid = () => {
       ) : (
         <div className={styles.grid}>
           {activeLibrary.map((item) => {
-            // Apply the new 5-star scoring engine logic to calculate the tier
             const tier = scoringEngine.calculateTier(item.userStats?.score || 0);
 
             return (
@@ -54,12 +53,10 @@ const LibraryGrid = () => {
                   <h3 className={styles.title}>{item.metadata.title}</h3>
                   
                   <div className={styles.stats}>
-                    {/* Visual 1-5 Star Rating */}
                     <span className={styles.score}>
                       {'⭐'.repeat(item.userStats?.score || 0)}
                     </span>
                     
-                    {/* Render Completed Badge */}
                     {item.userStats?.completed && (
                       <span className={styles.completedBadge}>✓ Completed</span>
                     )}

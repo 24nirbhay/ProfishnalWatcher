@@ -82,28 +82,19 @@ const SearchBar = () => {
 
   return (
     <div className={styles.searchContainer}>
-
       <form
         onSubmit={handleSearch}
         className={styles.searchForm}
       >
-
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
           className={styles.select}
         >
-          <option value="anime">
-            Anime
-          </option>
-
-          <option value="movie">
-            Movies
-          </option>
-
-          <option value="tv">
-            TV Shows
-          </option>
+          <option value="anime">Anime</option>
+          {/* FIXED: Changed from "movie" to "movies" */}
+          <option value="movies">Movies</option>
+          <option value="tv">TV Shows</option>
         </select>
 
         <input
@@ -125,29 +116,22 @@ const SearchBar = () => {
 
       {results.length > 0 && (
         <div className={styles.resultsGrid}>
-
           {results.map((item) => (
             <div
               key={item.id}
               className={styles.resultCard}
             >
-
               <img
                 src={item.metadata?.poster}
                 alt={item.metadata?.title}
                 className={styles.poster}
                 loading="lazy"
               />
-
               <div className={styles.info}>
-                <h4>
-                  {item.metadata?.title}
-                </h4>
-
+                <h4>{item.metadata?.title}</h4>
                 <p>
                   {item.metadata?.releaseDate?.substring(0, 4) || 'Unknown'}
                 </p>
-
                 <button
                   onClick={() => openRatingModal(item)}
                   className={styles.addButton}
@@ -155,67 +139,46 @@ const SearchBar = () => {
                   Add to Library
                 </button>
               </div>
-
             </div>
           ))}
-
         </div>
       )}
 
       {selectedItem && (
         <div className={styles.modalOverlay}>
-
           <div className={styles.modalContent}>
-
-            <h3>
-              {selectedItem.metadata?.title}
-            </h3>
-
-            <p>
-              Mark as completed and rate it.
-            </p>
-
+            <h3>{selectedItem.metadata?.title}</h3>
+            <p>Mark as completed and rate it.</p>
             <div className={styles.starContainer}>
-
               {[1, 2, 3, 4, 5].map((star) => (
                 <span
                   key={star}
                   onClick={() => setRating(star)}
                   className={`${styles.star} ${
-                    rating >= star
-                      ? styles.starActive
-                      : ''
+                    rating >= star ? styles.starActive : ''
                   }`}
                 >
                   ★
                 </span>
               ))}
-
             </div>
-
             <div className={styles.modalButtons}>
-
               <button
                 className={styles.cancelBtn}
                 onClick={cancelAdd}
               >
                 Cancel
               </button>
-
               <button
                 className={styles.confirmBtn}
                 onClick={confirmAdd}
               >
                 Confirm
               </button>
-
             </div>
-
           </div>
-
         </div>
       )}
-
     </div>
   );
 };
