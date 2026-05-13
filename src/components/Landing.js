@@ -84,9 +84,7 @@ const Landing = ({ onAction, user }) => {
         <h1 className={styles.titleGradient}>
           Track Everything.
         </h1>
-        <p className={styles.description}>
-          Join the nexus. Log your watched media, rate your favorites, and climb the global leaderboard to increase your Goon Level.
-        </p>
+        
         <p className={styles.subtitle}>
           Anime • Movies • TV Shows
         </p>
@@ -97,6 +95,9 @@ const Landing = ({ onAction, user }) => {
         >
           {user ? 'Open Library' : 'Start'}
         </button>
+        <p className={styles.description}>
+          Join the nexus. Log your watched media, rate your favorites, and climb the global leaderboard.
+        </p>
       </main>
 
       {/* --- MEDIA RANKING SECTION --- */}
