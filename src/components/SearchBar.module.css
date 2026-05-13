@@ -52,6 +52,12 @@
   cursor: pointer;
 }
 
+/* FIX: Ensure dropdown options have a dark background so white text is visible */
+.select option {
+  background-color: #161b22;
+  color: white;
+}
+
 .input {
   flex: 1;
   min-width: 220px;
@@ -97,6 +103,70 @@
 .button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 768px) {
+  .searchContainer {
+    gap: 1.5rem;
+  }
+
+  .searchForm {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  .select,
+  .input {
+    height: 60px !important;
+    padding: 0 1.2rem;
+    font-size: 1.1rem !important;
+    border-radius: 15px;
+    width: 100%;
+  }
+
+  .select {
+    min-width: 100%;
+  }
+
+  .input {
+    flex: 1;
+    min-width: 100%;
+  }
+
+  .button {
+    height: 60px !important;
+    width: 100%;
+    padding: 0 1rem;
+    font-size: 1.1rem !important;
+  }
+
+  .resultsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchForm {
+    padding: 0.8rem;
+    gap: 0.8rem;
+  }
+
+  .select,
+  .input,
+  .button {
+    height: 56px !important;
+    font-size: 1.05rem !important;
+  }
+
+  .resultsGrid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
 }
 
 /* RESULTS */
@@ -361,12 +431,6 @@
     align-items: stretch;
   }
 
-  .select,
-  .input,
-  .button {
-    width: 100%;
-  }
-
   .resultsGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
@@ -413,22 +477,8 @@ img{
 
 @media (max-width:768px){
 
-  .searchContainer{
-    gap:1.4rem;
-  }
-
   .searchForm{
-    gap:.9rem;
-    padding:.9rem;
     border-radius:18px;
-  }
-
-  .select,
-  .input,
-  .button{
-    height:48px;
-    font-size:.9rem;
-    border-radius:12px;
   }
 
   .resultsGrid{
@@ -498,23 +548,6 @@ img{
 /* ---------- SMALL PHONES ---------- */
 
 @media (max-width:480px){
-
-  .searchContainer{
-    gap:1rem;
-  }
-
-  .searchForm{
-    padding:.8rem;
-    border-radius:16px;
-  }
-
-  .select,
-  .input,
-  .button{
-    height:44px;
-    padding:0 .85rem;
-    font-size:.84rem;
-  }
 
   .resultsGrid{
     grid-template-columns: repeat(2, 1fr);

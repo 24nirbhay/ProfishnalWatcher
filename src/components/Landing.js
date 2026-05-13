@@ -24,10 +24,11 @@ const Landing = ({ onAction, user }) => {
         .select('*');
       if (mediaData) setRankings(mediaData);
 
-      // Fetch User Rankings
+      // Fetch User Rankings and order them by tracked items to ensure they display properly
       const { data: userData } = await supabase
         .from('global_user_rankings')
-        .select('*');
+        .select('*')
+        .order('total_tracked_items', { ascending: false });
       if (userData) setUserRankings(userData);
     };
     
@@ -126,7 +127,7 @@ const Landing = ({ onAction, user }) => {
         )}
       </section>
 
-{/* --- NEW USER LEADERBOARD SECTION --- */}
+      {/* --- USER LEADERBOARD SECTION --- */}
       <section className={styles.userRankingSection}>
         <h2 className={styles.rankingHeader}>Top Trackers</h2>
 

@@ -176,14 +176,17 @@ button:hover {
 
   .nav-links {
     display: none;
-    position: static;
+    position: absolute;
+    top: 100%;
+    left: 0;
     width: 100%;
     flex-direction: column;
     background-color: var(--card-bg);
     border-bottom: 1px solid #30363d;
     padding: 0.7rem 0.8rem;
     gap: 1rem;
-    z-index: 100;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   }
 
   .main-nav.mobile-open .nav-links {
@@ -229,6 +232,8 @@ button:hover {
   button {
     width: 100%;
     padding: 0.75rem 1rem;
+    min-height: 52px !important;
+    font-size: 1rem !important;
   }
 
   .loading-screen {

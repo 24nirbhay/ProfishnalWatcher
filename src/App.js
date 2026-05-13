@@ -82,7 +82,7 @@ function App() {
             </button>
             
             {/* The gap is fixed natively using inline styles here for simplicity */}
-            <div className="nav-links" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+            <div className="nav-links">
               <button 
                 className="text-btn" 
                 onClick={() => {

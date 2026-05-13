@@ -82,7 +82,7 @@
   justify-content:space-between;
   align-items:center;
 
-  padding:1rem 2rem;
+  padding:0.6rem 1.2rem;
 
   background:rgba(0,0,0,.12);
 
@@ -94,7 +94,7 @@
 .nav h2{
   margin:0;
 
-  font-size:.95rem;
+  font-size:.85rem;
   font-weight:700;
 
   letter-spacing:.22em;
@@ -513,7 +513,10 @@
     border-radius:12px;
   }
 
-  .nav,
+  .nav {
+    padding: 0.5rem 0.8rem;
+  }
+
   .rankingSection,
   .userRankingSection{
     padding:1rem;
@@ -549,6 +552,10 @@
   .listScore{
     font-size:.88rem;
   }
+
+  .top3Grid {
+    gap: 1.5rem;
+  }
 }
 
 /* Better navbar scaling */
@@ -561,13 +568,13 @@
   }
 
   .nav h2{
-    font-size:.82rem;
+    font-size:.75rem;
     letter-spacing:.14em;
   }
 
   .navBtn{
-    padding:.65rem 1rem;
-    font-size:.82rem;
+    padding:0.5rem 0.9rem;
+    font-size:.75rem;
   }
 
   .rankingHeader{
