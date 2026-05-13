@@ -37,13 +37,8 @@
 }
 
 @keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .carouselOverlay {
@@ -111,10 +106,10 @@
   letter-spacing: 1px;
 }
 
+/* Base input styling */
 .input {
   width: 100%;
   padding: 1rem;
-  padding-right: 3rem;
   color: #fff;
   border-radius: 4px;
   border: 1px solid #333;
@@ -132,29 +127,38 @@
   box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
 }
 
+/* STRICT PASSWORD WRAPPER FIX */
 .passwordWrapper {
   position: relative;
-  display: flex;
-  align-items: center;
+  display: block; /* Removed flex to stop unwanted stretching */
   width: 100%;
 }
 
+.passwordInput {
+  padding-right: 3rem; /* Always reserve space for the button */
+}
+
+/* STRICT HITBOX LIMIT FOR BUTTON */
 .eyeBtn {
   position: absolute;
   top: 50%;
-  right: 15px;
+  right: 8px; /* Pushed cleanly to the right */
+  transform: translateY(-50%);
+  background: transparent;
   border: none;
-  background: none;
   cursor: pointer;
   font-size: 1.2rem;
   opacity: 0.7;
-  transform: translateY(-50%);
   transition: opacity 0.2s;
   z-index: 10;
+  
+  /* CRUCIAL: Forces the invisible hitbox to stay very small */
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem; 
+  padding: 0;
 }
 
 .eyeBtn:hover {
@@ -213,13 +217,11 @@
 }
 
 /* ---------- Tablet ---------- */
-
 @media (max-width: 1024px) {
   .authCard {
     max-width: 420px;
     padding: 2.5rem;
   }
-
   .carouselImage {
     width: 240px;
     height: 360px;
@@ -227,55 +229,43 @@
 }
 
 /* ---------- Mobile ---------- */
-
 @media (max-width: 768px) {
   .authContainer {
     padding: 1.2rem;
   }
-
   .authCard {
     max-width: 100%;
     padding: 2rem 1.4rem;
     border-radius: 14px;
   }
-
   .title {
     font-size: 1.6rem;
     margin-bottom: 1.5rem;
   }
-
   .form {
     gap: 1.2rem;
   }
-
   .input {
     padding: 0.9rem;
     font-size: 0.95rem;
+  }
+  .passwordInput {
     padding-right: 2.8rem;
   }
-
   .glowButton {
     width: 100%;
     padding: 0.9rem;
     font-size: 0.92rem;
     letter-spacing: 1px;
   }
-
   .carouselImage {
     width: 180px;
     height: 280px;
     opacity: 0.28;
   }
-
   .inputGroup {
     width: 100%;
   }
-
-  .eyeBtn {
-    right: 10px;
-    font-size: 1rem;
-  }
-
   .carouselTrack {
     gap: 12px;
     animation-duration: 26s;
@@ -283,47 +273,38 @@
 }
 
 /* ---------- Small Phones ---------- */
-
 @media (max-width: 480px) {
   .authContainer {
     padding: 0.8rem;
   }
-
   .authCard {
     padding: 1.5rem 1rem;
     border-radius: 12px;
   }
-
   .title {
     font-size: 1.35rem;
     letter-spacing: 1px;
   }
-
   .inputGroup label {
     font-size: 0.78rem;
   }
-
   .input {
     padding: 0.85rem;
     font-size: 0.9rem;
   }
-
   .glowButton {
     font-size: 0.85rem;
     padding: 0.85rem;
   }
-
   .toggleText {
     margin-top: 1.5rem;
     font-size: 0.75rem;
   }
-
   .carouselImage {
     width: 140px;
     height: 220px;
     opacity: 0.2;
   }
-
   .carouselTrack {
     gap: 10px;
   }

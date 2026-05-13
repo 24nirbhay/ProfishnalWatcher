@@ -67,7 +67,7 @@ const Auth = ({ onBack }) => {
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter clearance code"
-                className={styles.input}
+                className={`${styles.input} ${styles.passwordInput}`}
               />
               <button 
                 type="button" 
@@ -87,7 +87,7 @@ const Auth = ({ onBack }) => {
         <p className={styles.toggleText}>
           {isLogin ? "NO ACCESS? " : "HAVE CLEARANCE? "}
           <span onClick={() => setIsLogin(!isLogin)} className={styles.toggleLink}>
-            {isLogin ? 'REQUEST ACCESS' : 'LOGIN'}
+            {isLogin ? 'SIGN UP' : 'LOGIN'}
           </span>
         </p>
       </div>

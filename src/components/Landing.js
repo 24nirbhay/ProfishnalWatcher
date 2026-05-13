@@ -8,6 +8,11 @@ const ANIME_POSTERS = [
   "https://cdn.myanimelist.net/images/anime/3/40451.jpg",
   "https://cdn.myanimelist.net/images/anime/1337/99013.jpg",
   "https://cdn.myanimelist.net/images/anime/1286/99889.jpg",
+  "https://cdn.myanimelist.net/images/anime/1171/109222.jpg",
+  "https://cdn.myanimelist.net/images/anime/10/47347.jpg",
+  "https://cdn.myanimelist.net/images/anime/3/40451.jpg",
+  "https://cdn.myanimelist.net/images/anime/1337/99013.jpg",
+  "https://cdn.myanimelist.net/images/anime/1286/99889.jpg",
 ];
 
 const Landing = ({ onAction, user }) => {
@@ -79,7 +84,9 @@ const Landing = ({ onAction, user }) => {
         <h1 className={styles.titleGradient}>
           Track Everything.
         </h1>
-
+        <p className={styles.description}>
+          Join the nexus. Log your watched media, rate your favorites, and climb the global leaderboard to increase your Goon Level.
+        </p>
         <p className={styles.subtitle}>
           Anime • Movies • TV Shows
         </p>

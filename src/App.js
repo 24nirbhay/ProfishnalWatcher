@@ -41,7 +41,7 @@ function App() {
     return () => subscription.unsubscribe();
   }, [setUser, fetchProfile]);
 
-  if (loading) return <div className="loading-screen">Loading System...</div>;
+  if (loading) return <div className="loading-screen">Ek sec rav...</div>;
 
   return (
     <div className={`app-container ${profile?.settings?.theme || 'dark'}`}>
