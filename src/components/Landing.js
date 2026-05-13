@@ -96,6 +96,7 @@ const Landing = ({ onAction, user }) => {
           {user ? 'Open Library' : 'Start'}
         </button>
         <p className={styles.description}>
+          ye dekh anushka gaikwad 😭👇
           Join the nexus. Log your watched media, rate your favorites, and climb the global leaderboard.
         </p>
       </main>
