@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const omdbKey = process.env.OMDB_API_KEY; // TODO: Use env var in production
+    const omdbKey = '289df1be'; // TODO: Use env var in production
     const typeParam = type ? `&type=${type}` : '';
     const url = `https://www.omdbapi.com/?s=${encodeURIComponent(q)}${typeParam}&apikey=${omdbKey}`;
     
