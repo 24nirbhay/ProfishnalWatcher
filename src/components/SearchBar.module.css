@@ -517,8 +517,8 @@ img{
   }
 
   .resultsGrid{
-    grid-template-columns:1fr;
-    gap:.8rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap:0.8rem;
   }
 
   .resultCard{
@@ -530,7 +530,7 @@ img{
   }
 
   .info{
-    padding:.75rem;
+    padding:0.6rem;
   }
 
   .info h4{

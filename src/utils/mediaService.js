@@ -30,19 +30,19 @@ const normalizeAnime = (anime) => ({
 });
 
 /**
- * Helper to normalize Movies/TV from Unofficial IMDb API
+ * Helper to normalize Movies/TV from OMDB API
  */
-const normalizeUnofficialIMDb = (item, type) => {
-  // Map the specific fields from the iamidiotareyoutoo API
-  const title = item['#TITLE'] || item.title || 'Unknown';
-  const year = item['#YEAR'] || item.year || 'Unknown';
-  const imdbId = item['#IMDB_ID'] || item.imdb_id || Math.random().toString();
-  const poster = item['#IMG_POSTER'] || item.poster || 'https://via.placeholder.com/500x750?text=No+Poster';
+const normalizeOmdb = (item, type) => {
+  // Map the specific fields from the OMDB API
+  const title = item.Title || 'Unknown';
+  const year = item.Year || 'Unknown';
+  const imdbId = item.imdbID || Math.random().toString();
+  const poster = item.Poster && item.Poster !== 'N/A' ? item.Poster : 'https://via.placeholder.com/500x750?text=No+Poster';
 
   return {
     id: `${type}-${imdbId}`,
     externalId: imdbId,
-    source: 'imdb-unofficial',
+    source: 'omdb',
     type: type, // 'movie' or 'tv'
     metadata: {
       title: title,
@@ -55,7 +55,7 @@ const normalizeUnofficialIMDb = (item, type) => {
       episodeCount: 1, 
       status: 'Released',
       score: 0, 
-      studio: 'IMDb Data', 
+      studio: 'OMDB', 
     }
   };
 };
@@ -67,15 +67,20 @@ export const mediaService = {
       const json = await response.json();
       return json.data.map(normalizeAnime);
     } else {
-      // Ping our Vercel Serverless Function to completely bypass CORS
-      const response = await fetch(`/api/imdb?q=${encodeURIComponent(query)}`);
+      // Ping our Vercel Serverless Function to use OMDB API with CORS bypass
+      const omdbType = type === 'tv' ? 'series' : 'movie';
+      const response = await fetch(`/api/imdb?q=${encodeURIComponent(query)}&type=${omdbType}`);
       const json = await response.json();
       
-      // The API nests the array of results inside the "description" object
-      const resultsArray = json.description || [];
+      // OMDB returns Search array when successful
+      if (json.Response === 'False') {
+        return [];
+      }
+      
+      const resultsArray = json.Search || [];
 
       // Map the results array through our normalizer
-      return resultsArray.map(item => normalizeUnofficialIMDb(item, type));
+      return resultsArray.map(item => normalizeOmdb(item, type));
     }
   }
 };

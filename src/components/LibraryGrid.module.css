@@ -177,11 +177,9 @@
     padding: 0.55rem 0.8rem;
   }
 
-  /* CLEAN 4 COLUMN MOBILE GRID */
-
   .grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.55rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
   .card {
@@ -189,11 +187,11 @@
   }
 
   .posterContainer {
-    height: 145px;
+    height: 220px;
   }
 
   .content {
-    padding: 0.45rem;
+    padding: 0.75rem;
   }
 
   .title {
@@ -229,12 +227,12 @@
 @media (max-width: 480px) {
 
   .grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.45rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
   }
 
   .posterContainer {
-    height: 128px;
+    height: 180px;
   }
 
   .content {
