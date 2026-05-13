@@ -19,7 +19,15 @@ const useStore = create((set, get) => ({
         
       if (error) throw error;
       if (data) {
-        set({ profile: data, library: data.library });
+        // FIXED: Guarantee the library arrays always exist, even for brand new users
+        const safeLibrary = data.library || { anime: [], movies: [], tv: [] };
+        
+        // Ensure all sub-arrays exist in case the DB object is partially empty
+        safeLibrary.anime = safeLibrary.anime || [];
+        safeLibrary.movies = safeLibrary.movies || safeLibrary.movie || []; // Catch legacy "movie"
+        safeLibrary.tv = safeLibrary.tv || [];
+
+        set({ profile: data, library: safeLibrary });
       }
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -74,7 +82,6 @@ const useStore = create((set, get) => ({
     }
   },
 
-  // THE MISSING IMPORT FUNCTION
   updateLibrary: async (newLibrary) => {
     const { user } = get();
     if (!user) return; // Prevent saving if no user is logged in
