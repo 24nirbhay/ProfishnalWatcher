@@ -8,11 +8,6 @@ const ANIME_POSTERS = [
   "https://cdn.myanimelist.net/images/anime/3/40451.jpg",
   "https://cdn.myanimelist.net/images/anime/1337/99013.jpg",
   "https://cdn.myanimelist.net/images/anime/1286/99889.jpg",
-  "https://cdn.myanimelist.net/images/anime/1171/109222.jpg",
-  "https://cdn.myanimelist.net/images/anime/10/47347.jpg",
-  "https://cdn.myanimelist.net/images/anime/3/40451.jpg",
-  "https://cdn.myanimelist.net/images/anime/1337/99013.jpg",
-  "https://cdn.myanimelist.net/images/anime/1286/99889.jpg",
 ];
 
 const Landing = ({ onAction, user }) => {
@@ -20,31 +15,32 @@ const Landing = ({ onAction, user }) => {
   const [rankings, setRankings] = useState([]);
   const [userRankings, setUserRankings] = useState([]);
 
-  // Fetch both Media Rankings and User Rankings from our Supabase Views
   useEffect(() => {
     const fetchLeaderboards = async () => {
-      // Fetch Media Rankings
-      const { data: mediaData } = await supabase
+      // Fetch Media Rankings with error logging
+      const { data: mediaData, error: mediaError } = await supabase
         .from('global_media_rankings')
         .select('*');
+        
+      if (mediaError) console.error("Supabase Media View Error:", mediaError.message);
       if (mediaData) setRankings(mediaData);
 
-      // Fetch User Rankings and order them by tracked items to ensure they display properly
-      const { data: userData } = await supabase
+      // Fetch User Rankings with error logging
+      const { data: userData, error: userError } = await supabase
         .from('global_user_rankings')
         .select('*')
         .order('total_tracked_items', { ascending: false });
+        
+      if (userError) console.error("Supabase User View Error:", userError.message);
       if (userData) setUserRankings(userData);
     };
     
     fetchLeaderboards();
   }, []);
 
-  // Split Media rankings into Podium (Top 3) and the List (4-15)
   const top3Media = rankings.slice(0, 3);
   const next12Media = rankings.slice(3, 15);
 
-  // Split User rankings into Podium (Top 3) and the List (4-15)
   const top3Users = userRankings.slice(0, 3);
   const next12Users = userRankings.slice(3, 15);
 
@@ -84,9 +80,13 @@ const Landing = ({ onAction, user }) => {
         <h1 className={styles.titleGradient}>
           Track Everything.
         </h1>
-        
+
         <p className={styles.subtitle}>
           Anime • Movies • TV Shows
+        </p>
+
+        <p className={styles.description}>
+          Join the nexus. Log your watched media, rate your favorites, and climb the global leaderboard to increase your Goon Level.
         </p>
 
         <button
@@ -95,9 +95,6 @@ const Landing = ({ onAction, user }) => {
         >
           {user ? 'Open Library' : 'Start'}
         </button>
-        <p className={styles.description}>
-          Join the nexus. Log your watched media, rate your favorites, and climb the global leaderboard.
-        </p>
       </main>
 
       {/* --- MEDIA RANKING SECTION --- */}
@@ -142,19 +139,17 @@ const Landing = ({ onAction, user }) => {
         {userRankings.length > 0 ? (
           <>
             <div className={styles.top3Grid}>
-              {/* Podium for Top 3 */}
               {top3Users.map((u, index) => (
                 <div key={u.id} className={`${styles.top3CardUser} ${styles[`rank${index + 1}`]}`}>
                   <div className={styles.cardContent}>
                     <h3 className={styles.rankNumber}>#{index + 1}</h3>
                     <div className={styles.userAvatarPlaceholder}>
-                       {u.username.charAt(0).toUpperCase()}
+                       {u.username?.charAt(0).toUpperCase() || '?'}
                     </div>
                     <div className={styles.rankingInfo}>
                       <h4>@{u.username}</h4>
                     </div>
                   </div>
-                  {/* Goon Level placed at the bottom for Top 3 */}
                   <div className={styles.goonLevelBottom}>
                     <span className={styles.ratingScore}>⚔️ Goon Level: {u.total_tracked_items}</span>
                   </div>
@@ -162,24 +157,24 @@ const Landing = ({ onAction, user }) => {
               ))}
             </div>
 
-            <div className={styles.top15List}>
-              {/* List layout for #4 - #15 */}
-              {next12Users.map((u, index) => (
-                <div key={u.id} className={styles.listItem}>
-                  <div className={styles.listLeft}>
-                    <span className={styles.listRank}>{index + 4}</span>
-                    <div className={styles.listAvatarPlaceholder}>
-                       {u.username.charAt(0).toUpperCase()}
+            {next12Users.length > 0 && (
+              <div className={styles.top15List}>
+                {next12Users.map((u, index) => (
+                  <div key={u.id} className={styles.listItem}>
+                    <div className={styles.listLeft}>
+                      <span className={styles.listRank}>#{index + 4}</span>
+                      <div className={styles.listAvatarPlaceholder}>
+                         {u.username?.charAt(0).toUpperCase() || '?'}
+                      </div>
+                      <span className={styles.listTitle}>@{u.username}</span>
                     </div>
-                    <span className={styles.listTitle}>@{u.username}</span>
+                    <div className={styles.listRight}>
+                      <span className={styles.listScore}>⚔️ Goon Level: {u.total_tracked_items}</span>
+                    </div>
                   </div>
-                  {/* Goon Level placed at the side for the rest */}
-                  <div className={styles.listRight}>
-                    <span className={styles.listScore}>⚔️ Goon Level: {u.total_tracked_items}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </>
         ) : (
           <p className={styles.loadingText}>Loading top trackers...</p>
