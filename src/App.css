@@ -51,6 +51,46 @@ nav {
   border-bottom: 1px solid #30363d;
 }
 
+.brand-title {
+  margin: 0;
+  cursor: pointer;
+  color: #00ffff;
+  font-family: Orbitron, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  gap: 0.4rem;
+  padding: 0;
+}
+
+.hamburger-btn span {
+  width: 24px;
+  height: 2.5px;
+  background-color: white;
+  border-radius: 2px;
+  transition: 0.3s ease;
+}
+
+.main-nav.mobile-open .hamburger-btn span:nth-child(1) {
+  transform: rotate(45deg) translateY(10px);
+}
+
+.main-nav.mobile-open .hamburger-btn span:nth-child(2) {
+  opacity: 0;
+}
+
+.main-nav.mobile-open .hamburger-btn span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-10px);
+}
+
 .dashboard {
   width: 100%;
   max-width: 1200px;
@@ -108,10 +148,73 @@ button:hover {
 
 @media (max-width: 768px) {
   nav {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  nav h2 {
+    flex: 1;
+    margin: 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+  }
+
+  .hamburger-btn {
+    display: flex;
+    width: auto;
+    gap: 0.3rem;
+  }
+
+  .hamburger-btn span {
+    width: 20px;
+    height: 2px;
+  }
+
+  .nav-links {
+    display: none;
+    position: static;
+    width: 100%;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.8rem;
-    padding: 1rem;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid #30363d;
+    padding: 0.7rem 0.8rem;
+    gap: 1rem;
+    z-index: 100;
+  }
+
+  .main-nav.mobile-open .nav-links {
+    display: flex !important;
+  }
+
+  .nav-links button {
+    width: 100%;
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    justify-content: flex-start;
+    font-size: 0.9rem;
+    background: transparent;
+    color: #e6edf3;
+    border: 1px solid transparent;
+    box-shadow: none;
+  }
+
+  .nav-links button:hover {
+    background: rgba(255, 255, 255, 0.04);
+    filter: none;
+  }
+
+  .nav-links .logout-btn {
+    background: #2b2f36 !important;
+    color: #fff !important;
+    border: 1px solid #3a3f47 !important;
+  }
+
+  .nav-links .admin-btn {
+    color: #ff7ab6 !important;
   }
 
   .dashboard {

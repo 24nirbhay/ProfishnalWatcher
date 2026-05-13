@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import useStore from './store/useStore';
 import { supabase } from './supabaseClient';
@@ -12,7 +13,8 @@ import './App.css';
 
 function App() {
   const { user, setUser, fetchProfile, loading, profile } = useStore();
-  const [currentView, setCurrentView] = useState('landing'); 
+  const [currentView, setCurrentView] = useState('landing');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // This function acts as the "Remember Me", fetching active sessions from LocalStorage
@@ -59,27 +61,47 @@ function App() {
 
       {currentView !== 'landing' && currentView !== 'auth' && user && (
         <div className="dashboard">
-          <nav className="main-nav">
+          <nav className={`main-nav ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             {/* Clicking logo redirects to Landing Page */}
-            <h2 onClick={() => setCurrentView('landing')} style={{cursor: 'pointer', margin: 0, color: '#00ffff', fontFamily: 'Orbitron'}}>
+            <h2
+              className="brand-title"
+              onClick={() => setCurrentView('landing')}
+            >
               profishnalwatcher
             </h2>
+            
+            {/* Hamburger Menu Toggle for Mobile */}
+            <button 
+              className="hamburger-btn" 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
             
             {/* The gap is fixed natively using inline styles here for simplicity */}
             <div className="nav-links" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
               <button 
                 className="text-btn" 
-                onClick={() => setCurrentView('library')}
+                onClick={() => {
+                  setCurrentView('library');
+                  setMobileMenuOpen(false);
+                }}
                 style={{ fontWeight: currentView === 'library' ? 'bold' : 'normal', color: 'white', background: 'transparent', border: 'none', cursor: 'pointer' }}
               >
                 Library
               </button>
               <button 
                 className="text-btn" 
-                onClick={() => setCurrentView('profile')}
+                onClick={() => {
+                  setCurrentView('profile');
+                  setMobileMenuOpen(false);
+                }}
                 style={{ fontWeight: currentView === 'profile' ? 'bold' : 'normal', color: 'white', background: 'transparent', border: 'none', cursor: 'pointer' }}
               >
-                Analytics
+                Profile
               </button>
               {profile?.is_admin && (
                 <button 

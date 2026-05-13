@@ -171,6 +171,7 @@
       #ec4899
     );
 
+  background-clip:text;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
@@ -496,17 +497,19 @@
 @media (max-width:768px){
 
   .carouselContainer{
-    inset:-40%;
+    inset:-10%;
   }
 
   .carouselTrack{
-    gap:.8rem;
-    transform:rotate(-8deg) scale(1.5);
+    gap:.65rem;
+    transform:rotate(-8deg) scale(1.05);
   }
 
   .carouselImage{
-    width:180px;
-    height:270px;
+    width:42vw;
+    max-width:170px;
+    height:62vw;
+    max-height:255px;
     border-radius:12px;
   }
 
@@ -546,26 +549,6 @@
   .listScore{
     font-size:.88rem;
   }
-}
-
-/* ---------- EXTRA RESPONSIVE FIXES ---------- */
-
-*{
-  box-sizing:border-box;
-}
-
-img{
-  max-width:100%;
-  display:block;
-}
-
-body{
-  overflow-x:hidden;
-}
-
-.container{
-  width:100%;
-  overflow-x:hidden;
 }
 
 /* Better navbar scaling */
@@ -644,18 +627,20 @@ body{
 @media (max-width:480px){
 
   .carouselContainer{
-    inset:-55%;
+    inset:-6%;
   }
 
   .carouselTrack{
-    gap:.6rem;
-    transform:rotate(-8deg) scale(1.7);
+    gap:.5rem;
+    transform:rotate(-8deg) scale(1.02);
     animation-duration:45s;
   }
 
   .carouselImage{
-    width:130px;
-    height:195px;
+    width:46vw;
+    max-width:145px;
+    height:68vw;
+    max-height:215px;
     border-radius:10px;
     opacity:.72;
   }

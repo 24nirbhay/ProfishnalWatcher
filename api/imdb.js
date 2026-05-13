@@ -15,19 +15,28 @@ export default async function handler(req, res) {
     // Server-to-server request bypasses CORS
     const response = await fetch(url);
     const contentType = response.headers.get('content-type');
+
+    const rawBody = await response.text();
+
+    const parseBody = () => {
+      try {
+        return JSON.parse(rawBody);
+      } catch {
+        return { Response: 'False', Error: 'Non-JSON response from OMDB' };
+      }
+    };
     
     if (!response.ok) {
       console.error('OMDB API Error - Status:', response.status);
-      return res.status(response.status).json({ error: 'OMDB API returned error' });
+      return res.status(response.status).json({ error: 'OMDB API returned error', body: rawBody.slice(0, 300) });
     }
     
     if (!contentType || !contentType.includes('application/json')) {
-      const text = await response.text();
-      console.error('OMDB API returned non-JSON:', contentType, text);
-      return res.status(500).json({ error: 'OMDB API returned invalid response type' });
+      console.error('OMDB API returned non-JSON:', contentType, rawBody.slice(0, 300));
+      return res.status(200).json(parseBody());
     }
     
-    const data = await response.json();
+    const data = parseBody();
     
     console.log('OMDB Response:', data);
     

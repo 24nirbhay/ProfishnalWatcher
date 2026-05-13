@@ -5,6 +5,7 @@
  */
 
 const JIKAN_BASE_URL = 'https://api.jikan.moe/v4';
+const PLACEHOLDER_POSTER = 'https://via.placeholder.com/500x750?text=No+Poster';
 
 /**
  * Helper to normalize Anime from Jikan
@@ -37,7 +38,7 @@ const normalizeOmdb = (item, type) => {
   const title = item.Title || 'Unknown';
   const year = item.Year || 'Unknown';
   const imdbId = item.imdbID || Math.random().toString();
-  const poster = item.Poster && item.Poster !== 'N/A' ? item.Poster : 'https://via.placeholder.com/500x750?text=No+Poster';
+  const poster = item.Poster && item.Poster !== 'N/A' ? item.Poster : PLACEHOLDER_POSTER;
 
   return {
     id: `${type}-${imdbId}`,
@@ -60,6 +61,34 @@ const normalizeOmdb = (item, type) => {
   };
 };
 
+const fetchWikimediaPoster = async (title, year) => {
+  const query = encodeURIComponent([title, year].filter(Boolean).join(' '));
+  const url = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${query}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=500&format=json&origin=*`;
+
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+    const page = json?.query?.pages ? Object.values(json.query.pages)[0] : null;
+    return page?.thumbnail?.source || PLACEHOLDER_POSTER;
+  } catch {
+    return PLACEHOLDER_POSTER;
+  }
+};
+
+const enrichPoster = async (item) => {
+  if (item?.metadata?.poster && item.metadata.poster !== PLACEHOLDER_POSTER) return item;
+
+  const poster = await fetchWikimediaPoster(item?.metadata?.title, item?.metadata?.releaseDate?.slice(0, 4));
+  return {
+    ...item,
+    metadata: {
+      ...item.metadata,
+      poster,
+      banner: poster,
+    },
+  };
+};
+
 export const mediaService = {
   search: async (query, type = 'anime') => {
     if (type === 'anime') {
@@ -70,7 +99,14 @@ export const mediaService = {
       // Ping our Vercel Serverless Function to use OMDB API with CORS bypass
       const omdbType = type === 'tv' ? 'series' : 'movie';
       const response = await fetch(`/api/imdb?q=${encodeURIComponent(query)}&type=${omdbType}`);
-      const json = await response.json();
+      const text = await response.text();
+
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch {
+        json = { Response: 'False', Error: 'Unexpected non-JSON response' };
+      }
       
       // OMDB returns Search array when successful
       if (json.Response === 'False') {
@@ -80,7 +116,8 @@ export const mediaService = {
       const resultsArray = json.Search || [];
 
       // Map the results array through our normalizer
-      return resultsArray.map(item => normalizeOmdb(item, type));
+      const normalized = resultsArray.map(item => normalizeOmdb(item, type));
+      return Promise.all(normalized.map(enrichPoster));
     }
   }
 };
