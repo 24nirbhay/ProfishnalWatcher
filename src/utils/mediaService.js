@@ -92,7 +92,7 @@ const enrichPoster = async (item) => {
 export const mediaService = {
   search: async (query, type = 'anime') => {
     if (type === 'anime') {
-      const response = await fetch(`${JIKAN_BASE_URL}/anime?q=${encodeURIComponent(query)}&limit=20`);
+      const response = await fetch(`${JIKAN_BASE_URL}/anime?q=${encodeURIComponent(query)}&limit=10`);
       const json = await response.json();
       return json.data.map(normalizeAnime);
     } else {
