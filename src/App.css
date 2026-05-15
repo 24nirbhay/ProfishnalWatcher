@@ -124,6 +124,26 @@ button:hover {
   text-align: center;
 }
 
+.app-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.85rem;
+  color: #6e7681;
+  background-color: transparent;
+  border-top: 1px solid rgba(48, 54, 61, 0.3);
+  margin-top: auto;
+}
+
+.app-footer a {
+  color: #6e7681;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.app-footer a:hover {
+  color: var(--accent);
+}
+
 .library-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
