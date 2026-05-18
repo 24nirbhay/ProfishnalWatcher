@@ -68,11 +68,7 @@ const Landing = ({ onAction, user }) => {
             <h1 className={styles.logo} onClick={() => onAction(user ? 'library' : 'landing')}>
               profishnalwatcher
             </h1>
-            <div className={styles.navActions}>
-              <button className={styles.navButton} onClick={() => onAction(user ? 'library' : 'auth')}>
-                {user ? 'Open Library' : 'Login / Sign Up'}
-              </button>
-            </div>
+            
           </div>
         </nav>
 
@@ -154,7 +150,11 @@ const Landing = ({ onAction, user }) => {
           </div>
         </section>
       </div>
+      <footer className="app-footer">
+        ~made by <a href="https://github.com/24nirbhay" target="_blank" rel="noopener noreferrer">peru</a>
+      </footer>
     </div>
+    
   );
 };
 
