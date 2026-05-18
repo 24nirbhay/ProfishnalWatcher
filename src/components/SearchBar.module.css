@@ -65,7 +65,7 @@
 
 .select:focus,
 .input:focus {
-  border-color: rgba(168,85,247,0.5);
+  border-color: #facc15;
   background: rgba(255,255,255,0.06);
 }
 
@@ -78,13 +78,9 @@
   padding: 0 1.5rem;
 
   background:
-    linear-gradient(
-      135deg,
-      #7c3aed,
-      #ec4899
-    );
+    linear-gradient(90deg, #facc15, #eab308);
 
-  color: white;
+  color: #111;
 
   font-family: 'Inter', sans-serif;
   font-weight: 700;
@@ -98,6 +94,7 @@
 
 .button:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(250, 204, 21, 0.25);
 }
 
 .button:disabled {
@@ -242,13 +239,9 @@
   padding: 0.8rem 1rem;
 
   background:
-    linear-gradient(
-      135deg,
-      rgba(124,58,237,0.95),
-      rgba(236,72,153,0.95)
-    );
+    linear-gradient(90deg, #facc15, #eab308);
 
-  color: white;
+  color: #111;
 
   font-family: 'Inter', sans-serif;
   font-weight: 700;
@@ -262,6 +255,7 @@
 
 .addButton:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(250, 204, 21, 0.25);
 }
 
 /* MODAL */
@@ -366,7 +360,7 @@
 }
 
 .starActive {
-  color: #FFD166;
+  color: #facc15;
 }
 
 /* BUTTONS */
@@ -398,17 +392,14 @@
   border: none;
 
   background:
-    linear-gradient(
-      135deg,
-      #7c3aed,
-      #ec4899
-    );
+    linear-gradient(90deg, #facc15, #eab308);
 
-  color: white;
+  color: #111;
 }
 
 .confirmBtn:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(250, 204, 21, 0.25);
 }
 
 .cancelBtn {

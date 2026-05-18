@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;900&display=swap');
 
 :root {
-  --bg-color: #0d1117;
-  --card-bg: #161b22;
-  --text-main: #c9d1d9;
-  --accent: #58a6ff;
-  --danger: #f85149;
+  --bg-color: #0a0a0a;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --text-main: #e0e0e0;
+  --text-muted: #a0a0a0;
+  --accent: #facc15;
+  --accent-gradient: linear-gradient(90deg, #facc15, #eab308);
+  --danger: #ff4d4d;
   --success: #3fb950;
-  --tier-s: #ff7b72;
-  --tier-a: #ffa657;
-  --tier-b: #d2a8ff;
+  --tier-s: linear-gradient(90deg, #ff7b72, #ff4d4d);
+  --tier-a: linear-gradient(90deg, #facc15, #eab308);
+  --tier-b: linear-gradient(90deg, #d2a8ff, #b366ff);
 }
 
 * {
@@ -21,8 +24,7 @@ body {
   padding: 0;
   overflow-x: hidden;
   width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-main);
 }
@@ -48,15 +50,15 @@ nav {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 2rem;
-  background-color: var(--card-bg);
-  border-bottom: 1px solid #30363d;
+  padding: 1.5rem 2rem;
+  background-color: transparent;
+  border-bottom: none;
 }
 
 .brand-title {
   margin: 0;
   cursor: pointer;
-  color: #00ffff;
+  color: var(--accent);
   font-family: Orbitron, sans-serif;
   font-size: 1rem;
   letter-spacing: 0.18em;
@@ -101,19 +103,21 @@ nav {
 }
 
 button {
-  background-color: var(--accent);
-  color: white;
+  background: var(--accent-gradient);
+  color: #111;
   border: none;
   padding: 0.6rem 1.2rem;
-  border-radius: 6px;
+  border-radius: 12px;
   cursor: pointer;
-  font-weight: 600;
-  transition: 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  transition: all 0.3s ease;
   white-space: nowrap;
 }
 
 button:hover {
-  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(250, 204, 21, 0.25);
 }
 
 .auth-view {
@@ -130,14 +134,14 @@ button:hover {
   text-align: center;
   padding: 1.5rem 1rem;
   font-size: 0.85rem;
-  color: #6e7681;
+  color: var(--text-muted);
   background-color: transparent;
-  border-top: 1px solid rgba(48, 54, 61, 0.3);
+  border-top: 1px solid var(--card-border);
   margin-top: auto;
 }
 
 .app-footer a {
-  color: #6e7681;
+  color: var(--text-muted);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -203,8 +207,8 @@ button:hover {
     left: 0;
     width: 100%;
     flex-direction: column;
-    background-color: var(--card-bg);
-    border-bottom: 1px solid #30363d;
+    background-color: #111;
+    border-bottom: 1px solid var(--card-border);
     padding: 0.7rem 0.8rem;
     gap: 1rem;
     z-index: 1000;
@@ -222,20 +226,20 @@ button:hover {
     justify-content: flex-start;
     font-size: 0.9rem;
     background: transparent;
-    color: #e6edf3;
+    color: var(--text-main);
     border: 1px solid transparent;
     box-shadow: none;
   }
 
   .nav-links button:hover {
     background: rgba(255, 255, 255, 0.04);
-    filter: none;
+    color: var(--accent);
   }
 
   .nav-links .logout-btn {
-    background: #2b2f36 !important;
-    color: #fff !important;
-    border: 1px solid #3a3f47 !important;
+    background: rgba(255, 77, 77, 0.1) !important;
+    color: var(--danger) !important;
+    border: 1px solid rgba(255, 77, 77, 0.2) !important;
   }
 
   .nav-links .admin-btn {

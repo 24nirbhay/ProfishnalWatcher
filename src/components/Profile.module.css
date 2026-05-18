@@ -11,7 +11,7 @@
 .header {
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #30363d;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .header h2 {
@@ -31,16 +31,17 @@
 }
 
 .statCard, .settingsCard {
-  background: var(--card-bg);
-  border: 1px solid #30363d;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
   padding: 1.5rem;
+  backdrop-filter: blur(10px);
 }
 
 .statCard h3, .settingsCard h3 {
   margin-top: 0;
-  color: var(--accent);
-  border-bottom: 1px solid #30363d;
+  color: #e0e0e0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 0.8rem;
 }
 
@@ -49,14 +50,14 @@
   font-weight: bold;
   text-align: center;
   margin: 1rem 0;
-  color: var(--text-main);
+  color: #facc15;
 }
 
 .breakdown {
   display: flex;
   justify-content: space-around;
   font-size: 0.85rem;
-  color: #8b949e;
+  color: #a0a0a0;
 }
 
 .genreList {
@@ -67,7 +68,7 @@
 
 .genreList li {
   padding: 0.8rem 0;
-  border-bottom: 1px solid #30363d;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
 }
@@ -77,7 +78,7 @@
 }
 
 .rank {
-  color: var(--tier-a);
+  color: #facc15;
   font-weight: bold;
   margin-right: 1rem;
   font-size: 1.2rem;
@@ -85,7 +86,7 @@
 
 .count {
   margin-left: auto;
-  color: #8b949e;
+  color: #a0a0a0;
   font-size: 0.9rem;
 }
 
@@ -98,13 +99,17 @@
 
 .themeBtn {
   background-color: transparent;
-  border: 1px solid var(--text-main);
-  color: var(--text-main);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
 }
 
 .themeBtn:hover {
-  background-color: var(--text-main);
-  color: var(--bg-color);
+  background: linear-gradient(90deg, #facc15, #eab308);
+  color: #111;
+  border-color: transparent;
+  box-shadow: 0 8px 20px rgba(250, 204, 21, 0.25);
 }
 
 /* ---------- Responsive Fixes ---------- */
