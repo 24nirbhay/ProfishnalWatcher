@@ -82,7 +82,7 @@ const Landing = ({ onAction, user }) => {
             </div>
             <h1 className={styles.heroTitle}>Track Everything. Master Your Matrix.</h1>
             <p className={styles.heroSubtitle}>
-              Join the nexus. Log your watched media, rate your favorites, and climb the global leaderboard to increase your Goon Level.
+              Track your media, rate your favorites, and climb the global leaderboard to increase your Tracker Rank.
             </p>
             <button className={styles.heroButton} onClick={() => onAction(user ? 'library' : 'auth')}>
               {user ? 'Enter Library' : 'Start Tracking'}
@@ -142,7 +142,7 @@ const Landing = ({ onAction, user }) => {
                     {user.username?.charAt(0).toUpperCase() || '?'}
                   </div>
                   <div className={styles.userName}>@{user.username}</div>
-                  <div className={styles.userLevel}>⚔️ Goon Level: {user.total_tracked_items}</div>
+                  <div className={styles.userLevel}>Tracker Level: {user.total_tracked_items}</div>
                 </div>
               </div>
             ))}
