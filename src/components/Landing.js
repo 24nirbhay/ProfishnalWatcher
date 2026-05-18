@@ -47,7 +47,7 @@ const Landing = ({ onAction, user }) => {
           playsInline 
           className={styles.backgroundVideo}
         >
-          <source src="/placeholder-bg.mp4" type="video/mp4" />
+          <source src="/profishnalbg.mp4" type="video/mp4" />
         </video>
 
         {backgroundPosters.length > 0 && (
