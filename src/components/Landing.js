@@ -61,21 +61,21 @@ const Landing = ({ onAction, user }) => {
         )}
       </div>
 
-      {/* Navigation */}
-      <nav className={styles.nav}>
-        <div className={styles.navContent}>
-          <h1 className={styles.logo} onClick={() => onAction(user ? 'library' : 'landing')}>
-            profishnalwatcher
-          </h1>
-          <div className={styles.navActions}>
-            <button className={styles.navButton} onClick={() => onAction(user ? 'library' : 'auth')}>
-              {user ? 'Open Library' : 'Login / Sign Up'}
-            </button>
-          </div>
-        </div>
-      </nav>
-
       <div className={styles.pageContent}>
+        {/* Navigation */}
+        <nav className={styles.nav}>
+          <div className={styles.navContent}>
+            <h1 className={styles.logo} onClick={() => onAction(user ? 'library' : 'landing')}>
+              profishnalwatcher
+            </h1>
+            <div className={styles.navActions}>
+              <button className={styles.navButton} onClick={() => onAction(user ? 'library' : 'auth')}>
+                {user ? 'Open Library' : 'Login / Sign Up'}
+              </button>
+            </div>
+          </div>
+        </nav>
+
         {/* Hero Section */}
         <header className={styles.hero}>
           <div className={styles.heroContent}>

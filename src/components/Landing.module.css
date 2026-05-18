@@ -22,19 +22,20 @@
   content: '';
   position: absolute;
   inset: 0;
-  /* Darkened the gradient slightly so the video doesn't overpower the text */
-  background: radial-gradient(circle at 50% 30%, rgba(10, 10, 10, 0.4), #0a0a0a 85%),
+  /* A dark gradient to ensure text is readable over the video and posters */
+  background: radial-gradient(circle at 50% 30%, rgba(10, 10, 10, 0.5), #0a0a0a 80%),
               linear-gradient(to top, #0a0a0a 10%, transparent 50%);
+  z-index: 2; /* Sits on top of video, below posters */
 }
 
 .backgroundVideo {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
+  object-fit: cover;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  opacity: 0.5; /* Blends the video into the dark theme */
+  opacity: 0.4; /* Make video visible but not distracting */
+  z-index: 1; /* Sits behind the gradient overlay */
 }
 
 .backgroundVisuals {
@@ -45,6 +46,7 @@
   width: max-content;
   transform: rotate(-10deg) scale(1.2);
   animation: scroll 120s linear infinite;
+  z-index: 3; /* On top of the gradient */
 }
 
 .bgImageContainer {
@@ -52,8 +54,8 @@
   height: 450px;
   border-radius: 20px;
   overflow: hidden;
-  opacity: 0.15;
-  filter: blur(4px) brightness(0.7);
+  opacity: 0.1; /* Make posters more subtle so video is more visible */
+  filter: blur(8px) brightness(0.6);
 }
 
 .bgImageContainer img {
