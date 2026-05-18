@@ -15,9 +15,10 @@ const useStore = create((set, get) => ({
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single();
+        .maybeSingle(); // Prevents the 406 error when a profile doesn't exist yet
         
       if (error) throw error;
+
       if (data) {
         // FIXED: Guarantee the library arrays always exist, even for brand new users
         const safeLibrary = data.library || { anime: [], movies: [], tv: [] };
@@ -28,6 +29,9 @@ const useStore = create((set, get) => ({
         safeLibrary.tv = safeLibrary.tv || [];
 
         set({ profile: data, library: safeLibrary });
+      } else {
+        // Safe fallback if the database hasn't created the profile row yet
+        set({ profile: { id: userId }, library: { anime: [], movies: [], tv: [] } });
       }
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -50,8 +54,7 @@ const useStore = create((set, get) => ({
     // 2. Sync to Supabase
     const { error } = await supabase
       .from('profiles')
-      .update({ library: updatedLibrary })
-      .eq('id', user.id);
+      .upsert({ id: user.id, library: updatedLibrary }, { onConflict: 'id' });
 
     if (error) {
       console.error("Supabase Sync Error (Add):", error.message);
@@ -73,8 +76,7 @@ const useStore = create((set, get) => ({
     // 2. Sync deletion to Supabase
     const { error } = await supabase
       .from('profiles')
-      .update({ library: updatedLibrary })
-      .eq('id', user.id);
+      .upsert({ id: user.id, library: updatedLibrary }, { onConflict: 'id' });
 
     if (error) {
       console.error("Supabase Sync Error (Remove):", error.message);
@@ -92,8 +94,7 @@ const useStore = create((set, get) => ({
     // 2. Sync the entirely new library directly to the Supabase JSONB column
     const { error } = await supabase
       .from('profiles')
-      .update({ library: newLibrary })
-      .eq('id', user.id);
+      .upsert({ id: user.id, library: newLibrary }, { onConflict: 'id' });
 
     if (error) {
       console.error("Supabase Sync Error (Import):", error.message);
