@@ -150,12 +150,12 @@ const Landing = ({ onAction, user }) => {
           </div>
         </section>
       </div>
-      <footer className="app-footer">
-        ~made by <a href="https://github.com/24nirbhay" target="_blank" rel="noopener noreferrer">peru</a>
-      </footer>
     </div>
     
   );
+  <footer className="app-footer">
+        ~made by <a href="https://github.com/24nirbhay" target="_blank" rel="noopener noreferrer">peru</a>
+      </footer>
 };
 
 export default Landing;
