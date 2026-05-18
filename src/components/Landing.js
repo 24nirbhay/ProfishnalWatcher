@@ -39,6 +39,17 @@ const Landing = ({ onAction, user }) => {
     <div className={styles.container}>
       {/* Background Visuals */}
       <div className={styles.background}>
+        {/* [BACKGROUND_MP4_PLACEHOLDER] Replace src with your actual .mp4 path */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className={styles.backgroundVideo}
+        >
+          <source src="/placeholder-bg.mp4" type="video/mp4" />
+        </video>
+
         {backgroundPosters.length > 0 && (
           <div className={styles.backgroundVisuals}>
             {[...backgroundPosters, ...backgroundPosters].map((poster, index) => (
